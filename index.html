@@ -1,0 +1,190 @@
+HTML
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Atomy Hub</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex justify-center min-h-screen">
+
+  <main class="w-full max-w-md p-5 flex flex-col gap-5">
+    
+    <!-- 언어 전환 토글 -->
+    <div class="flex justify-end gap-2 text-xs font-semibold">
+      <button onclick="setLanguage('ko')" id="btn-ko" class="px-3 py-1 rounded-full bg-blue-600 text-white transition">한국어</button>
+      <button onclick="setLanguage('en')" id="btn-en" class="px-3 py-1 rounded-full bg-white text-slate-600 border border-slate-200 transition">English</button>
+    </div>
+
+    <!-- 프로필 영역 -->
+    <header class="flex flex-col items-center text-center mt-2">
+      <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-500 to-teal-400 p-1 shadow-md">
+        <div class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden">
+          <i class="fa-solid fa-crown text-3xl text-blue-600"></i>
+        </div>
+      </div>
+      <h1 class="text-xl font-bold mt-3 text-slate-900" data-i18n="title">글로벌 애터미 비즈니스</h1>
+      <p class="text-sm text-slate-500 mt-1" data-i18n="subtitle">절대품질 절대가격 | 건강과 아름다움의 솔루션</p>
+    </header>
+
+    <!-- 후원인 번호 복사 카드 -->
+    <section class="bg-blue-50 border border-blue-200 rounded-2xl p-4 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-blue-600 tracking-wide uppercase" data-i18n="sponsorLabel">회원가입 후원인 ID</span>
+          <p id="sponsor-id" class="text-lg font-extrabold text-slate-900 tracking-wider">S12345678</p>
+        </div>
+        <button onclick="copySponsorId()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+          <i class="fa-regular fa-clone"></i>
+          <span data-i18n="copyBtn">복사하기</span>
+        </button>
+      </div>
+      <p id="copy-feedback" class="text-xs text-green-600 mt-1 hidden font-medium" data-i18n="copiedMsg">클립보드에 복사되었습니다!</p>
+    </section>
+
+    <!-- 메인 액션 버튼: 회원가입 및 공식 쇼핑몰 -->
+    <section class="flex flex-col gap-3">
+      <a href="https://welcome.atomy.com" target="_blank" rel="noopener noreferrer" 
+         class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-between shadow-sm transition">
+        <span class="flex items-center gap-3">
+          <i class="fa-solid fa-user-plus text-lg"></i>
+          <span data-i18n="joinBtn">글로벌 통합 회원가입 바로가기</span>
+        </span>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+      </a>
+
+      <a href="https://www.atomy.kr" target="_blank" rel="noopener noreferrer" 
+         class="w-full bg-white border border-slate-200 hover:bg-slate-50 font-semibold py-3.5 px-4 rounded-xl flex items-center justify-between text-slate-800 shadow-sm transition">
+        <span class="flex items-center gap-3">
+          <i class="fa-solid fa-bag-shopping text-blue-600 text-lg"></i>
+          <span data-i18n="mallBtn">애터미 공식 쇼핑몰 둘러보기</span>
+        </span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400"></i>
+      </a>
+    </section>
+
+    <!-- 베스트셀러 카테고리/제품 안내 -->
+    <section class="flex flex-col gap-3">
+      <h2 class="text-sm font-bold text-slate-600 uppercase tracking-wider" data-i18n="bestSellers">추천 베스트셀러</h2>
+      
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center font-bold text-sm">H</div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800" data-i18n="hemohim">헤모힘 (HemoHIM)</h3>
+            <p class="text-xs text-slate-400" data-i18n="hemohimDesc">면역기능 개선 개별인정형 건기식</p>
+          </div>
+        </div>
+        <a href="#contact" class="text-xs font-semibold text-blue-600 border border-blue-200 px-2.5 py-1.5 rounded-lg hover:bg-blue-50 transition" data-i18n="inquiryBtn">문의</a>
+      </div>
+
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm">A</div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-800" data-i18n="skincare">앱솔루트 셀랙티브 스킨케어</h3>
+            <p class="text-xs text-slate-400" data-i18n="skincareDesc">디에이징 고효능 프리미엄 뷰티</p>
+          </div>
+        </div>
+        <a href="#contact" class="text-xs font-semibold text-blue-600 border border-blue-200 px-2.5 py-1.5 rounded-lg hover:bg-blue-50 transition" data-i18n="inquiryBtn">문의</a>
+      </div>
+    </section>
+
+    <!-- 1:1 상담 및 글로벌 문의 -->
+    <section id="contact" class="flex flex-col gap-3 mt-2">
+      <h2 class="text-sm font-bold text-slate-600 uppercase tracking-wider" data-i18n="contactTitle">1:1 빠른 상담 채널</h2>
+      
+      <div class="grid grid-cols-2 gap-2.5">
+        <!-- 카카오톡 (국내 유저 타깃) -->
+        <a href="https://open.kakao.com/o/YOUR_LINK" target="_blank" rel="noopener noreferrer" 
+           class="bg-[#FEE500] hover:bg-[#ebd300] text-[#191919] font-semibold py-3 px-3 rounded-xl flex items-center justify-center gap-2 text-xs shadow-sm transition">
+          <i class="fa-solid fa-comment text-sm"></i>
+          <span>카카오톡 상담</span>
+        </a>
+
+        <!-- 왓츠앱 (해외 유저 타깃) -->
+        <a href="https://wa.me/821012345678" target="_blank" rel="noopener noreferrer" 
+           class="bg-[#25D366] hover:bg-[#20b857] text-white font-semibold py-3 px-3 rounded-xl flex items-center justify-center gap-2 text-xs shadow-sm transition">
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>WhatsApp (Global)</span>
+        </a>
+      </div>
+    </section>
+
+    <footer class="text-center text-xs text-slate-400 py-4 mt-auto">
+      <p>© Global Atomy Partner. All rights reserved.</p>
+    </footer>
+
+  </main>
+
+  <script>
+    const translations = {
+      ko: {
+        title: "글로벌 애터미 비즈니스",
+        subtitle: "절대품질 절대가격 | 건강과 아름다움의 솔루션",
+        sponsorLabel: "회원가입 후원인 ID",
+        copyBtn: "복사하기",
+        copiedMsg: "후원인 번호가 복사되었습니다!",
+        joinBtn: "글로벌 통합 회원가입 바로가기",
+        mallBtn: "애터미 공식 쇼핑몰 둘러보기",
+        bestSellers: "추천 베스트셀러",
+        hemohim: "헤모힘 (HemoHIM)",
+        hemohimDesc: "면역기능 개선 개별인정형 건기식",
+        skincare: "앱솔루트 셀랙티브 스킨케어",
+        skincareDesc: "디에이징 고효능 프리미엄 뷰티",
+        inquiryBtn: "문의",
+        contactTitle: "1:1 빠른 상담 채널"
+      },
+      en: {
+        title: "Global Atomy Hub",
+        subtitle: "Absolute Quality, Absolute Price | Global Wellness & Beauty",
+        sponsorLabel: "Sponsor ID for Registration",
+        copyBtn: "Copy",
+        copiedMsg: "Sponsor ID copied to clipboard!",
+        joinBtn: "Join Global Membership",
+        mallBtn: "Visit Atomy Official Mall",
+        bestSellers: "Signature Products",
+        hemohim: "HemoHIM",
+        hemohimDesc: "Immune support supplement",
+        skincare: "Absolute CellActive Skincare",
+        skincareDesc: "Premium de-aging skincare system",
+        inquiryBtn: "Inquire",
+        contactTitle: "1:1 Global Consultation"
+      }
+    };
+
+    function setLanguage(lang) {
+      const texts = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (texts[key]) el.textContent = texts[key];
+      });
+
+      const btnKo = document.getElementById('btn-ko');
+      const btnEn = document.getElementById('btn-en');
+      if (lang === 'ko') {
+        btnKo.className = "px-3 py-1 rounded-full bg-blue-600 text-white transition";
+        btnEn.className = "px-3 py-1 rounded-full bg-white text-slate-600 border border-slate-200 transition";
+      } else {
+        btnEn.className = "px-3 py-1 rounded-full bg-blue-600 text-white transition";
+        btnKo.className = "px-3 py-1 rounded-full bg-white text-slate-600 border border-slate-200 transition";
+      }
+    }
+
+    function copySponsorId() {
+      const sponsorText = document.getElementById('sponsor-id').textContent;
+      navigator.clipboard.writeText(sponsorText).then(() => {
+        const feedback = document.getElementById('copy-feedback');
+        feedback.classList.remove('hidden');
+        setTimeout(() => feedback.classList.add('hidden'), 2500);
+      });
+    }
+  </script>
+</body>
+</html>
